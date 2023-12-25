@@ -1,8 +1,21 @@
 const Book = require('../models/Book')
 
 const getAllBooks = async (req, res) => {
+    //ÖDEV EKSTRALAR
+    //barkod, yayınevi, stok, fiyat  ---required
+    //ekstra kısıtlar --istediğiniz özelliklere ekleyin --max karakter vs.
 
-    const books = await Book.find({});
+
+    //skip - atla demek
+    //limit - şu kadar göster demek
+    //query ile page ve limit alıp skip bunlarla hesaplatılıyor
+    const page = Number(req.query.page) || 1
+    const limit = Number(req.query.limit) || 10
+    const skip = (page - 1) * limit
+
+    console.log({ sayfa: page, limit: limit, atla: skip });
+
+    const books = await Book.find({}).skip(skip).limit(limit);
     return res.status(201).send({ message: "Başarılı", data: books, count: books.length })
 
 }
@@ -22,7 +35,15 @@ const getBook = async (req, res) => {
 
 const addBook = async (req, res) => {
 
-    const newBook = { title: req.body.title, author: req.body.author, publishYear: req.body.publishYear }
+    const newBook = {   title: req.body.title, 
+                        author: req.body.author, 
+                        publishYear: req.body.publishYear,
+                        publisher: req.body.publisher,
+                        stock: req.body.stock,
+                        price: req.body.price,
+                        barcode: req.body.barcode,
+                        promoters: req.body.promoters
+                    }
     const book = await Book.create(newBook)
     return res.status(201).send({ message: "Başarılı", data: book })
 
