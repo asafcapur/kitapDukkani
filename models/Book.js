@@ -39,12 +39,33 @@ const bookSchema = new mongoose.Schema({
 
 
 },
-    
 promoters: {
     type: [String],
     required: [true, "Bir Şeyler Yanlış, Lütfen Destekleyicileri Boş Bırakmadığınızdan Emin Olun"],
     maxlength: [100, "Destekleyiciler en fazla 100 karakter olabilir"],
 },
+numberOfPages: {
+    type: Number,
+    required: [true, "Bir Şeyler Ters Gitti lütfen Sayfa Sayısını Boş Bırakmadığınızdan Emin Olup Tekrar Deneyin"],
+    min: 1,
+    max: [650, "Sayfa Sayısı En Fazla 650 Karakter Olabilir Bu Sayıyı Geçmediğinizden Emin Olup Tekrar Deneyin"]
+}
+,paperType: {
+    type: String,
+    required: [true, "Bir Şeyler Ters Gitti Lütfen Kağıt Tipini Boş Bırakmadığınızdan Emin Olup Tekrar Deneyin"],
+}
+,lid: {
+type: String,
+required: [true, "Bir Şeyler Ters Gitti Lütfen Kapağı Boş Bırakmadığınızdan Emin Olup Tekrar Deneyin"]
+
+}
+,bookType:{
+type: [String],
+required: [true, "Bir Şeyler Ters Gitti Lütfen kitap Türünü Boş Bırakmadığınızdan Emin Olup Tekrar Deneyin"]
+}
+
+
+
 
 
 

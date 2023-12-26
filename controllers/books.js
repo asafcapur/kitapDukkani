@@ -34,7 +34,11 @@ const addBook = async (req, res) => {
                         stock: req.body.stock,
                         price: req.body.price,
                         barcode: req.body.barcode,
-                        promoters: req.body.promoters
+                        promoters: req.body.promoters,
+                        numberOfPages: req.body.numberOfPages,
+                        paperType: req.body.paperType,
+                        lid: req.body.lid,
+                        bookType: req.body.booktype
                     }
     const book = await Book.create(newBook)
     return res.status(201).send({ message: "Başarılı", data: book })
