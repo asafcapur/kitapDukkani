@@ -67,14 +67,10 @@ const bookSchema = new mongoose.Schema({
         type: [String],
         required: [true, "Kitap türünü boş bırakmayınız. Lütfen tekrar deneyin."],
     },
-
-
 paymentOptions: {
 type: [String],
 required: [true, "Lütfen İlk Önce Ödeme Seçeneğinizi Seçin!"]
     },
-    
-
 evaluation: {
 type: Number,
 required: [true, "Lütfen Kitabımıza 10 Üzerinden Bir Puan Verin!"],
