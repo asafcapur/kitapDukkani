@@ -21,7 +21,7 @@ const getBook = async (req, res) => {
         return res.status(404).send({ message: "Kitap bulunamadı" })
     }
 
-    return res.status(201).send({ message: "Başarılı", data: book })
+    return res.status(201).send({ message: "Başarılı Bir Şekilde Yeni Bir Kitap Eklendi!", data: book })
 
 }
 
@@ -38,10 +38,13 @@ const addBook = async (req, res) => {
                         numberOfPages: req.body.numberOfPages,
                         paperType: req.body.paperType,
                         lid: req.body.lid,
-                        bookType: req.body.booktype
+                        bookType: req.body.bookType,
+                        paymentOptions: req.body.paymentOptions,
+                        cargoInformation: req.body.cargoInformation,
+                        evaluation: req.body.evaluation
                     }
     const book = await Book.create(newBook)
-    return res.status(201).send({ message: "Başarılı", data: book })
+    return res.status(201).send({ message: "Başarılı Bir Şekilde Yeni Bir Kitap Eklendi!", data: book })
 
 }
 
