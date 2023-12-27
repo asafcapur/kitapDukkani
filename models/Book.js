@@ -74,11 +74,12 @@ const bookSchema = new mongoose.Schema({
         type: Number,
         required: [true, "Lütfen Kitabımıza 10 Üzerinden Bir Puan Verin!"],
         max: [10, "En Fazla 10 Puan Verebilirsiniz"],
-    },
-    dimensions: {
-        type: Number,
-        required: [true, "Lütfen Ölçüleri Boş Bırakmadığınızdan Emin Olun ve Tekrar Deneyin"]
-    }
+    },  
+        dimensions: {
+            type: String, // Tipi "String" olarak değiştirin
+            required: [true, "Lütfen Ölçüleri Boş Bırakmadığınızdan Emin Olun ve Tekrar Deneyin"]
+        }
+        
 });
 
 module.exports = mongoose.model('Book', bookSchema);
