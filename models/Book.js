@@ -48,8 +48,7 @@ const bookSchema = new mongoose.Schema({
     numberOfPages: {
         type: Number,
         validate: {
-            validator: function(value) {
-                /// Eğer numberOfPages boşsa veya undefined ise geçerli sayılır Ancak Ben İllaki Bir değer eklemek istiyorum diyorsanız value de belirtilen Sayı Veya Onun üstünde Bir Sayı Gimeniz Gerekiyor
+            validator: function (value) {
                 return value === undefined || value === null || value >= 1;
             },
             message: "Sayfa sayısını boş bırakmayınız veya 1 veya daha fazla bir değer giriniz."
@@ -67,26 +66,19 @@ const bookSchema = new mongoose.Schema({
         type: [String],
         required: [true, "Kitap türünü boş bırakmayınız. Lütfen tekrar deneyin."],
     },
-paymentOptions: {
-type: [String],
-required: [true, "Lütfen İlk Önce Ödeme Seçeneğinizi Seçin!"]
+    paymentOptions: {
+        type: [String],
+        required: [true, "Lütfen İlk Önce Ödeme Seçeneğinizi Seçin!"]
     },
-evaluation: {
-type: Number,
-required: [true, "Lütfen Kitabımıza 10 Üzerinden Bir Puan Verin!"],
-max: [10, "En Fazla 10 Puan Verebilirsiniz"],
-
-}
-
-    
+    evaluation: {
+        type: Number,
+        required: [true, "Lütfen Kitabımıza 10 Üzerinden Bir Puan Verin!"],
+        max: [10, "En Fazla 10 Puan Verebilirsiniz"],
+    },
+    dimensions: {
+        type: Number,
+        required: [true, "Lütfen Ölçüleri Boş Bırakmadığınızdan Emin Olun ve Tekrar Deneyin"]
     }
-    
-
-
-
-
-
-
-);
+});
 
 module.exports = mongoose.model('Book', bookSchema);
