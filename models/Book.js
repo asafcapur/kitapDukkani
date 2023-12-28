@@ -14,7 +14,7 @@ const bookSchema = new mongoose.Schema({
     publishYear: {
         type: Number,
         required: [true, "Yayın yılını boş bırakmayınız. Lütfen tekrar deneyin."],
-        min: [2000, "Yayın yılı en az 2000 olabilir"],
+        min: [1000, "Yayın yılı en az 2000 olabilir"],
         max: [2023, "Yayın yılı en fazla 2023 olabilir"],
     },
     publisher: {
