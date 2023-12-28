@@ -53,7 +53,7 @@ const bookSchema = new mongoose.Schema({
     price: {
         type: Number,
         required: [true, "Fiyat miktarını boş bırakmayınız. Lütfen tekrar deneyin."],
-        min: [5, "Fiyat miktarı en az 5 TL olabilir"],
+        min: [5, "Türkiye Şartlarında Bu Kadar Oluyor :("],
     },
     barcode: {
         type: String,
