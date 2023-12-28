@@ -22,7 +22,6 @@ const obje = {
     },
     // Diğer özellikler buraya eklenebilir
 };
-
 const bookSchema = new mongoose.Schema({
     title: {
         type: String,
