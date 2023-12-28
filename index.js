@@ -20,7 +20,7 @@ const start = async () => {
     try {
         await connect(process.env.MONGO_URI);
         app.listen(port, () => {
-            console.log("sunucu çalışmaya başladı....." + port);
+            console.log("sunucu Başarıyla çalışmaya başladı....." + port);
         })
     } catch (error) {
         console.log(error);
