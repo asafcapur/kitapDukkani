@@ -1,5 +1,28 @@
 const mongoose = require('mongoose');
 
+// Bir nesnenin içindeki özellikleri tanımlayan bir obje
+const obje = {
+    // "numberOfPages" adında bir özellik
+    numberOfPages: {
+        // Bu özellik bir sayı tipindedir
+        type: Number,
+
+        // Doğrulama (validation) kurallarını içeren "validate" özelliği
+        validate: {
+            // "validator" özelliği, doğrulama işlevini temsil eder
+            validator: function (value) {
+                // Doğrulama işlevi, belirli bir koşulu kontrol eder
+                // Koşul, value'nun undefined, null veya 1'den büyük olmasıdır
+                return value === undefined || value === null || value >= 1;
+            },
+
+            // "message" özelliği, doğrulama başarısız olduğunda gösterilecek hata mesajını içerir
+            message: "Sayfa sayısını boş bırakmayınız veya 1 veya daha fazla bir değer giriniz."
+        }
+    },
+    // Diğer özellikler buraya eklenebilir
+};
+
 const bookSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -32,28 +55,17 @@ const bookSchema = new mongoose.Schema({
         required: [true, "Fiyat miktarını boş bırakmayınız. Lütfen tekrar deneyin."],
         min: [5, "Fiyat miktarı en az 5 TL olabilir"],
     },
-    //barkod
     barcode: {
         type: String,
         required: [true, "Barkodu boş bırakmayınız."],
         unique: true,
     },
-    //destekleyiciler
     promoters: {
         type: [String],
         required: [true, "Destekleyicileri boş bırakmayınız. Lütfen tekrar deneyin."],
         maxlength: [100, "Destekleyiciler en fazla 100 karakter olabilir"],
     },
-    //Number of pages
-    numberOfPages: {
-        type: Number,
-        validate: {
-            validator: function (value) {
-                return value === undefined || value === null || value >= 1;
-            },
-            message: "Sayfa sayısını boş bırakmayınız veya 1 veya daha fazla bir değer giriniz."
-        }
-    },
+    ...obje, // obje içindeki özellikleri buraya ekleyin
     paperType: {
         type: String,
         required: [true, "Kağıt tipini boş bırakmayınız. Lütfen tekrar deneyin."],
@@ -75,11 +87,8 @@ const bookSchema = new mongoose.Schema({
         required: [true, "Lütfen Kitabımıza 10 Üzerinden Bir Puan Verin!"],
         max: [10, "En Fazla 10 Puan Verebilirsiniz"],
     },  
-        dimensions: {
-            type: String, // Tipi "String" olarak değiştirin
-            required: [true, "Lütfen Ölçüleri Boş Bırakmadığınızdan Emin Olun ve Tekrar Deneyin"]
-        }
-        
-});
+})
+
+
 
 module.exports = mongoose.model('Book', bookSchema);
