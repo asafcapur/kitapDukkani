@@ -16,7 +16,7 @@ const bookSchema = new mongoose.Schema({
         required: false,
     },
     category: {
-        type: String,
+        type: [String],
         required: [true, "Kategori boş bırakılamaz"],
     },
     language: {
