@@ -32,7 +32,7 @@ const start = async () => {
     try {
         await connect(process.env.MONGO_URI);
         app.listen(port, () => {
-            console.log("Sunucu başarıyla çalışmaya başladı..." + port);
+            console.log("1...2...3...Sunucu Alev Aldı..🔥🔥🔥" + port);
         });
     } catch (error) {
         console.error(error);
