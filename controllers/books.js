@@ -2,11 +2,80 @@ const Book = require('../models/Book');
 
 const getAllBooks = async (req, res) => {
     try {
-        const books = await Book.find({});
-        return res.status(200).send({ data: books });
+        const { author, title, sort, fields, numericFilters } = req.query;
+        const queryObj = {};
+
+        // Regex işlemleri
+        if (title) {
+            queryObj.title = { $regex: title.replace(/[iıİ]/gi, '[ıIiİ]'), $options: 'i' };
+        }
+
+        if (author) {
+            queryObj.author = { $regex: author.replace(/[iıİ]/gi, '[ıIiİ]'), $options: 'i' };
+        }
+
+        // Numeric filters işlemleri
+        if (numericFilters) {
+            const operatorMap = {
+                ">": "$gt",
+                ">=": "$gte",
+                "=": "$eq",
+                "!=": "$ne",
+                "<": "$lt",
+                "<=": "$lte",
+            };
+            const regexStr = /\b(<|>|>=|=|<|<=|!=)\b/g;
+            let filters = numericFilters.replace(
+                regexStr,
+                (match) => `-${operatorMap[match]}-`,
+            );
+            const options = ["price", "stock", "edition"];
+
+            filters = filters.split(",");
+
+            for (const item of filters) {
+                const [field, operator, value] = item.split("-");
+                if (options.includes(field)) {
+                    queryObj[field] = { [operator]: Number(value) };
+                }
+            }
+        }
+
+        console.log("şu ana kadar oluşan yeni query objemiz ", queryObj);
+
+        // MongoDB sorgusunu oluşturun
+        let result = Book.find(queryObj);
+
+       
+       
+       
+
+        if (sort) {
+            const sortList = sort.split(",").join(" ");
+            result = result.sort(sortList);
+        } else {
+            result = result.sort("createdAt");
+        }
+        
+        
+        if (fields) {
+            const fieldsList = fields.split(",").join(" ");
+            result = result.select(fieldsList);
+        }
+    
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 99;
+        const skip = (page - 1) * limit;
+
+        result = result.skip(skip).limit(limit);
+        const books = await result;
+
+        
+        return res.status(200).json({ adet: books.length, data: books });
     } catch (error) {
-        console.error("Kitapları getirme işlemi sırasında bir hata oluştu:", error);
-        return res.status(500).send({ message: "Kitapları getirme işlemi sırasında bir hata oluştu." });
+        
+        console.error('Error:', error);
+        return res.status(500).json({ message: 'Dahili Sunucu Hatası!' });
     }
 };
 
@@ -70,4 +139,4 @@ const deleteAllBooks = async (req, res) => {
     }
 };
 
-module.exports = { getAllBooks, getBook, addBook, updateBook, deleteBook, deleteAllBooks };
+module.exports = {getAllBooks, getBook, addBook, updateBook, deleteBook, deleteAllBooks}

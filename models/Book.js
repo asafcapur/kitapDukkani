@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const bookSchema = new mongoose.Schema({
     // Kitap Bilgileri
     title: {
@@ -16,7 +15,7 @@ const bookSchema = new mongoose.Schema({
         required: false,
     },
     category: {
-        type: [String],
+        type: String,
         required: [true, "Kategori boş bırakılamaz"],
     },
     language: {
@@ -91,6 +90,4 @@ const bookSchema = new mongoose.Schema({
     timestamps: true
 });
 
-
 module.exports = mongoose.model('Book', bookSchema);
-
