@@ -132,10 +132,10 @@ const deleteBook = async (req, res) => {
 const deleteAllBooks = async (req, res) => {
     try {
         const result = await Book.deleteMany({});
-        return res.status(200).send({ message: "Tüm kitaplar silindi", data: result });
+        return res.status(200).send({ message: "Tüm kitaplar Başarıyla silindi", data: result });
     } catch (error) {
         console.error("Kitapları silme işlemi sırasında bir hata oluştu:", error);
-        return res.status(500).send({ message: "Kitapları silme işlemi sırasında bir hata oluştu." });
+        return res.status(500).send({ message: " Tüm Kitapları silme işlemi sırasında bir hata oluştu." });
     }
 };
 
